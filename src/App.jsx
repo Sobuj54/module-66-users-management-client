@@ -30,18 +30,28 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         console.log("inside post response", data);
+        const newUser = [...users, data];
+        setUsers(newUser);
+        form.reset();
       });
   };
+
   return (
     <>
       <h1>User management system</h1>
       <div>user : {users.length}</div>
+
       <form onSubmit={handleAddUser}>
         <input type="text" name="name" required /> <br />
         <input type="text" name="email" required />
         <br />
         <input type="submit" value="Add user" />
       </form>
+      <div>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </div>
     </>
   );
 }
